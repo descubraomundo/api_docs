@@ -4,8 +4,8 @@
         "title": "DMI Api",
         "version": "1.0.0"
     },
-    "host": "api.descubraomundo.local",
-    "basePath": "/api",
+    "host": "api3.descubraomundo.com",
+    "basePath": "/",
     "schemes": [
         "http"
     ],
@@ -17,7 +17,7 @@
                 ],
                 "summary": "Return a city based on a name",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
@@ -53,7 +53,7 @@
                 ],
                 "summary": "Return an offer based on a single ID",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
@@ -89,7 +89,7 @@
                 ],
                 "summary": "List all available offers",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
@@ -211,7 +211,7 @@
                 ],
                 "summary": "Return an offer based on a single ID",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
@@ -247,7 +247,7 @@
                 ],
                 "summary": "Create invoice and return url link to redirect user to checkout",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
@@ -291,7 +291,7 @@
                 ],
                 "summary": "Return an offer based on a name",
                 "produces": [
-                    "application/vnd.api.v1+json"
+                    "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
