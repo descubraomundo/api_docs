@@ -284,20 +284,294 @@
                 ]
             }
         },
-        "/schools/{name}": {
+        "/schools": {
             "get": {
                 "tags": [
                     "schools"
                 ],
-                "summary": "Return an offer based on a name",
+                "summary": "List all available schools",
                 "produces": [
                     "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Fetch schools by page",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
                         "name": "name",
+                        "in": "query",
+                        "description": "Filter schools by school name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/school"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "schools"
+                ],
+                "summary": "Create new School entity",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "owner_user_id",
+                        "in": "formData",
+                        "description": "The owner user ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "The School Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "The School slug",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city_id",
+                        "in": "formData",
+                        "description": "The City ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "preferred_partner",
+                        "in": "formData",
+                        "description": "If this partner is preferred or not",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "published",
+                        "in": "formData",
+                        "description": "If this partner must be published",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "The Address fo the Partner",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_name",
+                        "in": "formData",
+                        "description": "The School Responsible Name",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_email",
+                        "in": "formData",
+                        "description": "The School Responsible Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_phone",
+                        "in": "formData",
+                        "description": "The School Responsible Phone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_skype",
+                        "in": "formData",
+                        "description": "The School Responsible Skype",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "booking_contact_email",
+                        "in": "formData",
+                        "description": "The School Booking Contact Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "school_category",
+                        "in": "formData",
+                        "description": "The School School Category",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "established",
+                        "in": "formData",
+                        "description": "The School Year Established",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "centre_capacity",
+                        "in": "formData",
+                        "description": "The School Centre Capacity",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "num_of_levels",
+                        "in": "formData",
+                        "description": "The School Num Of Levels",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "num_of_classrooms",
+                        "in": "formData",
+                        "description": "The School Num Of Classrooms",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "class_duration",
+                        "in": "formData",
+                        "description": "The School Class Duration",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teachers_resource",
+                        "in": "formData",
+                        "description": "The School Teachers Resource",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "max_num_of_students_per_class",
+                        "in": "formData",
+                        "description": "The School Max Num Of Students Per Class",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "avg_num_of_students_per_class",
+                        "in": "formData",
+                        "description": "The School Avg Num Of Students Per Class",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "min_age_to_book",
+                        "in": "formData",
+                        "description": "The School Min Age To Book",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "offered_programs",
+                        "in": "formData",
+                        "description": "The School Offered Programs",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "infrastructure",
+                        "in": "formData",
+                        "description": "The School Infrastructure",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nationality_mix",
+                        "in": "formData",
+                        "description": "The School Nationality Mix",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "age_mix",
+                        "in": "formData",
+                        "description": "The School Age Mix",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "why_study_here",
+                        "in": "formData",
+                        "description": "Reasons for Why Study in the school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "what_you_need_to_know",
+                        "in": "formData",
+                        "description": "What You Need To Know about the school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "about",
+                        "in": "formData",
+                        "description": "The School About",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/school"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid input"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/schools/{id}": {
+            "get": {
+                "tags": [
+                    "schools"
+                ],
+                "summary": "Return a school based on its ID",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
                         "in": "path",
-                        "description": "Name of school to fetch",
+                        "description": "ID of school to fetch",
                         "required": true,
                         "type": "string"
                     }
@@ -308,6 +582,243 @@
                     },
                     "404": {
                         "description": "School not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "schools"
+                ],
+                "summary": "Update an existing School entity",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "The school entity ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "owner_user_id",
+                        "in": "formData",
+                        "description": "The owner user ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "The School Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "The School slug",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city_id",
+                        "in": "formData",
+                        "description": "The City ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "preferred_partner",
+                        "in": "formData",
+                        "description": "If this partner is preferred or not",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "published",
+                        "in": "formData",
+                        "description": "If this partner must be published",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "The Address fo the Partner",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_name",
+                        "in": "formData",
+                        "description": "The School Responsible Name",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_email",
+                        "in": "formData",
+                        "description": "The School Responsible Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_phone",
+                        "in": "formData",
+                        "description": "The School Responsible Phone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_skype",
+                        "in": "formData",
+                        "description": "The School Responsible Skype",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "booking_contact_email",
+                        "in": "formData",
+                        "description": "The School Booking Contact Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "school_category",
+                        "in": "formData",
+                        "description": "The School School Category",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "established",
+                        "in": "formData",
+                        "description": "The School Year Established",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "centre_capacity",
+                        "in": "formData",
+                        "description": "The School Centre Capacity",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "num_of_levels",
+                        "in": "formData",
+                        "description": "The School Num Of Levels",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "num_of_classrooms",
+                        "in": "formData",
+                        "description": "The School Num Of Classrooms",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "class_duration",
+                        "in": "formData",
+                        "description": "The School Class Duration",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "teachers_resource",
+                        "in": "formData",
+                        "description": "The School Teachers Resource",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "max_num_of_students_per_class",
+                        "in": "formData",
+                        "description": "The School Max Num Of Students Per Class",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "avg_num_of_students_per_class",
+                        "in": "formData",
+                        "description": "The School Avg Num Of Students Per Class",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "min_age_to_book",
+                        "in": "formData",
+                        "description": "The School Min Age To Book",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "offered_programs",
+                        "in": "formData",
+                        "description": "The School Offered Programs",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "infrastructure",
+                        "in": "formData",
+                        "description": "The School Infrastructure",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nationality_mix",
+                        "in": "formData",
+                        "description": "The School Nationality Mix",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "age_mix",
+                        "in": "formData",
+                        "description": "The School Age Mix",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "why_study_here",
+                        "in": "formData",
+                        "description": "Reasons for Why Study in the school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "what_you_need_to_know",
+                        "in": "formData",
+                        "description": "What You Need To Know about the school",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "about",
+                        "in": "formData",
+                        "description": "The School About",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/school"
+                        }
+                    },
+                    "400": {
+                        "description": "invalid input"
                     }
                 },
                 "security": [
@@ -695,170 +1206,6 @@
             },
             "type": "object"
         },
-        "schoolCity": {
-            "properties": {
-                "type": {
-                    "description": "The City type",
-                    "type": "string"
-                },
-                "city": {
-                    "description": "The city name",
-                    "type": "string"
-                },
-                "country": {
-                    "description": "The country name",
-                    "type": "string"
-                },
-                "about": {
-                    "description": "A brief description about the city",
-                    "type": "string"
-                },
-                "summary": {
-                    "description": "The city summary",
-                    "type": "string"
-                },
-                "timezone": {
-                    "description": "The city timezone",
-                    "type": "string"
-                },
-                "monthlyCostOfLiving": {
-                    "description": "The city monthly cost of living",
-                    "type": "string"
-                },
-                "whatYouNeedToKnow": {
-                    "description": "A brief text about what you need to know about the city",
-                    "type": "string"
-                },
-                "whyStudyHere": {
-                    "description": "The pros to study in the city",
-                    "type": "string"
-                },
-                "population": {
-                    "description": "The city population",
-                    "type": "string"
-                },
-                "avgSpringTemp": {
-                    "description": "The average spring temperature",
-                    "type": "string"
-                },
-                "avgWinterTemp": {
-                    "description": "The average winter temperature",
-                    "type": "string"
-                },
-                "avgFallTemp": {
-                    "description": "The average fall temperature",
-                    "type": "string"
-                },
-                "avgSummerTemp": {
-                    "description": "The average summer temperature",
-                    "type": "string"
-                },
-                "mapImage": {
-                    "description": "The city url map image from google",
-                    "type": "string"
-                },
-                "listImage": {
-                    "description": "The city listImage",
-                    "type": "object"
-                },
-                "highlightImage": {
-                    "description": "The city highlightImage",
-                    "type": "object"
-                },
-                "photos": {
-                    "description": "The city photos",
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "videos": {
-                    "description": "A city url video",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
-        "schoolCountry": {
-            "properties": {
-                "type": {
-                    "description": "The country type",
-                    "type": "string"
-                },
-                "isoCountryCode": {
-                    "description": "The iso country code",
-                    "type": "string"
-                },
-                "country": {
-                    "description": "The country name",
-                    "type": "string"
-                },
-                "about": {
-                    "description": "A brief description about the country",
-                    "type": "string"
-                },
-                "summary": {
-                    "description": "The country summary",
-                    "type": "string"
-                },
-                "capital": {
-                    "description": "The capital name",
-                    "type": "string"
-                },
-                "timezone": {
-                    "description": "The country timezone",
-                    "type": "string"
-                },
-                "whatYouNeedToKnow": {
-                    "description": "A brief text about what you need to know about the country",
-                    "type": "string"
-                },
-                "whyStudyHere": {
-                    "description": "The pros to study in the country",
-                    "type": "string"
-                },
-                "population": {
-                    "description": "The country population",
-                    "type": "string"
-                },
-                "powerVoltage": {
-                    "description": "The default power voltage in the country",
-                    "type": "string"
-                },
-                "bigMacIndex": {
-                    "description": "The big mac index",
-                    "type": "string"
-                },
-                "flag": {
-                    "description": "The url to the flag country",
-                    "type": "string"
-                },
-                "mapImage": {
-                    "description": "The country url map image from google",
-                    "type": "string"
-                },
-                "listImage": {
-                    "description": "The country listImage",
-                    "type": "object"
-                },
-                "highlightImage": {
-                    "description": "The country highlightImage",
-                    "type": "object"
-                },
-                "photos": {
-                    "description": "The country photos",
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "videos": {
-                    "description": "A country url video",
-                    "type": "string"
-                }
-            },
-            "type": "object"
-        },
         "school": {
             "required": [
                 "type",
@@ -874,10 +1221,12 @@
                     "type": "string"
                 },
                 "city": {
-                    "$ref": "#/definitions/schoolCity"
+                    "description": "The city name",
+                    "type": "string"
                 },
                 "country": {
-                    "$ref": "#/definitions/schoolCountry"
+                    "description": "The country name",
+                    "type": "string"
                 },
                 "about": {
                     "description": "Details about the school",
@@ -1001,6 +1350,14 @@
                 },
                 "videos": {
                     "description": "A school url video",
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "The creation date of the resource in ISO8601 format",
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "description": "The date of the last update in ISO8601 format",
                     "type": "string"
                 }
             },
