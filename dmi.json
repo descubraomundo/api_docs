@@ -10,20 +10,182 @@
         "http"
     ],
     "paths": {
-        "/cities/{name}": {
+        "/cities": {
             "get": {
                 "tags": [
                     "cities"
                 ],
-                "summary": "Return a city based on a name",
+                "summary": "List all available cities",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Fetch cities by page",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter cities by city name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/city"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "cities"
+                ],
+                "summary": "Create new School entity",
                 "produces": [
                     "application/vnd.dmi.v1+json"
                 ],
                 "parameters": [
                     {
                         "name": "name",
+                        "in": "query",
+                        "description": "The city name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_id",
+                        "in": "query",
+                        "description": "The country id",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "about",
+                        "in": "query",
+                        "description": "A brief description about the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "summary",
+                        "in": "query",
+                        "description": "The city summary",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "timezone",
+                        "in": "query",
+                        "description": "The city timezone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "monthly_cost_of_living",
+                        "in": "query",
+                        "description": "The city monthly cost of living",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "what_you_need_to_know",
+                        "in": "query",
+                        "description": "A brief text about what you need to know about the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "why_study_here",
+                        "in": "query",
+                        "description": "The pros to study in the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "population",
+                        "in": "query",
+                        "description": "The city population",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_spring_temp",
+                        "in": "query",
+                        "description": "The average spring temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_winter_temp",
+                        "in": "query",
+                        "description": "The average winter temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_fall_temp",
+                        "in": "query",
+                        "description": "The average fall temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_summer_temp",
+                        "in": "query",
+                        "description": "The average summer temperature",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/city"
+                        }
+                    },
+                    "422": {
+                        "description": "Input Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/cities/{id}": {
+            "get": {
+                "tags": [
+                    "cities"
+                ],
+                "summary": "Return a city based on a unique ID",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
                         "in": "path",
-                        "description": "Name of city to fetch",
+                        "description": "ID of the city to fetch",
                         "required": true,
                         "type": "string"
                     }
@@ -37,6 +199,131 @@
                     },
                     "404": {
                         "description": "City not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "cities"
+                ],
+                "summary": "Create new School entity",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The city id",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "The city name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "country_id",
+                        "in": "query",
+                        "description": "The country id",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "about",
+                        "in": "query",
+                        "description": "A brief description about the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "summary",
+                        "in": "query",
+                        "description": "The city summary",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "timezone",
+                        "in": "query",
+                        "description": "The city timezone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "monthly_cost_of_living",
+                        "in": "query",
+                        "description": "The city monthly cost of living",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "what_you_need_to_know",
+                        "in": "query",
+                        "description": "A brief text about what you need to know about the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "why_study_here",
+                        "in": "query",
+                        "description": "The pros to study in the city",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "population",
+                        "in": "query",
+                        "description": "The city population",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_spring_temp",
+                        "in": "query",
+                        "description": "The average spring temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_winter_temp",
+                        "in": "query",
+                        "description": "The average winter temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_fall_temp",
+                        "in": "query",
+                        "description": "The average fall temperature",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "avg_summer_temp",
+                        "in": "query",
+                        "description": "The average summer temperature",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/city"
+                        }
+                    },
+                    "422": {
+                        "description": "Input Validation Error"
                     }
                 },
                 "security": [
@@ -273,8 +560,314 @@
                             "$ref": "#/definitions/checkoutUrl"
                         }
                     },
-                    "400": {
-                        "description": "invalid input"
+                    "422": {
+                        "description": "Input Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/partners": {
+            "get": {
+                "tags": [
+                    "partners"
+                ],
+                "summary": "List all available Partners",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Fetch Partners by page",
+                        "required": false,
+                        "type": "integer",
+                        "default": 1
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Filter Partners by Partner name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Partner"
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "partners"
+                ],
+                "summary": "Create new Partner entity",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "owner_user_id",
+                        "in": "formData",
+                        "description": "The owner user ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "The Partner Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "The Partner slug",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city_id",
+                        "in": "formData",
+                        "description": "The City ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "preferred_partner",
+                        "in": "formData",
+                        "description": "If this Partner should be marked as preferred or not",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "published",
+                        "in": "formData",
+                        "description": "If this Partner should be published or not",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "The Address fo the Partner",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_name",
+                        "in": "formData",
+                        "description": "The Partner Responsible Name",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_email",
+                        "in": "formData",
+                        "description": "The Partner Responsible Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_phone",
+                        "in": "formData",
+                        "description": "The Partner Responsible Phone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_skype",
+                        "in": "formData",
+                        "description": "The Partner Responsible Skype",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "booking_contact_email",
+                        "in": "formData",
+                        "description": "The Partner Booking Contact Email",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Partner"
+                        }
+                    },
+                    "422": {
+                        "description": "Input Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            }
+        },
+        "/partners/{id}": {
+            "get": {
+                "tags": [
+                    "partners"
+                ],
+                "summary": "Return a Partner based on a unique ID",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Partner to fetch",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "Partner not found"
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "partners"
+                ],
+                "summary": "Update an existing Partner entity",
+                "produces": [
+                    "application/vnd.dmi.v1+json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The Partner entity ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "owner_user_id",
+                        "in": "formData",
+                        "description": "The owner user ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "The Partner Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "slug",
+                        "in": "formData",
+                        "description": "The Partner slug",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "city_id",
+                        "in": "formData",
+                        "description": "The City ID",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "preferred_partner",
+                        "in": "formData",
+                        "description": "If this partner is preferred or not",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "published",
+                        "in": "formData",
+                        "description": "If this partner must be published",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "name": "address",
+                        "in": "formData",
+                        "description": "The Address fo the Partner",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_name",
+                        "in": "formData",
+                        "description": "The Partner Responsible Name",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_email",
+                        "in": "formData",
+                        "description": "The Partner Responsible Email",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_phone",
+                        "in": "formData",
+                        "description": "The Partner Responsible Phone",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "responsible_skype",
+                        "in": "formData",
+                        "description": "The Partner Responsible Skype",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "booking_contact_email",
+                        "in": "formData",
+                        "description": "The Partner Booking Contact Email",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Partner"
+                        }
+                    },
+                    "422": {
+                        "description": "Input Validation Error"
                     }
                 },
                 "security": [
@@ -365,16 +958,23 @@
                         "type": "integer"
                     },
                     {
+                        "name": "school_category",
+                        "in": "formData",
+                        "description": "The School category",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "preferred_partner",
                         "in": "formData",
-                        "description": "If this partner is preferred or not",
+                        "description": "If this Partner should be marked as preferred or not",
                         "required": false,
                         "type": "boolean"
                     },
                     {
                         "name": "published",
                         "in": "formData",
-                        "description": "If this partner must be published",
+                        "description": "If this Partner should be published or not",
                         "required": false,
                         "type": "boolean"
                     },
@@ -417,13 +1017,6 @@
                         "name": "booking_contact_email",
                         "in": "formData",
                         "description": "The School Booking Contact Email",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "school_category",
-                        "in": "formData",
-                        "description": "The School School Category",
                         "required": false,
                         "type": "string"
                     },
@@ -547,8 +1140,8 @@
                             "$ref": "#/definitions/school"
                         }
                     },
-                    "400": {
-                        "description": "invalid input"
+                    "422": {
+                        "description": "Input Validation Error"
                     }
                 },
                 "security": [
@@ -563,7 +1156,7 @@
                 "tags": [
                     "schools"
                 ],
-                "summary": "Return a school based on its ID",
+                "summary": "Return a school based on a unique ID",
                 "produces": [
                     "application/vnd.dmi.v1+json"
                 ],
@@ -601,8 +1194,8 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
-                        "description": "The school entity ID",
+                        "in": "path",
+                        "description": "The School entity ID",
                         "required": true,
                         "type": "string"
                     },
@@ -633,6 +1226,13 @@
                         "description": "The City ID",
                         "required": false,
                         "type": "integer"
+                    },
+                    {
+                        "name": "school_category",
+                        "in": "formData",
+                        "description": "The School category",
+                        "required": false,
+                        "type": "string"
                     },
                     {
                         "name": "preferred_partner",
@@ -687,13 +1287,6 @@
                         "name": "booking_contact_email",
                         "in": "formData",
                         "description": "The School Booking Contact Email",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name": "school_category",
-                        "in": "formData",
-                        "description": "The School School Category",
                         "required": false,
                         "type": "string"
                     },
@@ -817,8 +1410,8 @@
                             "$ref": "#/definitions/school"
                         }
                     },
-                    "400": {
-                        "description": "invalid input"
+                    "422": {
+                        "description": "Input Validation Error"
                     }
                 },
                 "security": [
@@ -898,15 +1491,15 @@
                     "description": "The city timezone",
                     "type": "string"
                 },
-                "monthlyCostOfLiving": {
+                "monthly_cost_of_living": {
                     "description": "The city monthly cost of living",
                     "type": "string"
                 },
-                "whatYouNeedToKnow": {
+                "what_you_need_to_know": {
                     "description": "A brief text about what you need to know about the city",
                     "type": "string"
                 },
-                "whyStudyHere": {
+                "why_study_here": {
                     "description": "The pros to study in the city",
                     "type": "string"
                 },
@@ -914,31 +1507,31 @@
                     "description": "The city population",
                     "type": "string"
                 },
-                "avgSpringTemp": {
+                "avg_spring_temp": {
                     "description": "The average spring temperature",
                     "type": "string"
                 },
-                "avgWinterTemp": {
+                "avg_winter_temp": {
                     "description": "The average winter temperature",
                     "type": "string"
                 },
-                "avgFallTemp": {
+                "avg_fall_temp": {
                     "description": "The average fall temperature",
                     "type": "string"
                 },
-                "avgSummerTemp": {
+                "avg_summer_temp": {
                     "description": "The average summer temperature",
                     "type": "string"
                 },
-                "mapImage": {
+                "map_image": {
                     "description": "The city url map image from google",
                     "type": "string"
                 },
-                "listImage": {
+                "list_image": {
                     "description": "The city listImage",
                     "type": "object"
                 },
-                "highlightImage": {
+                "highlight_image": {
                     "description": "The city highlightImage",
                     "type": "object"
                 },
@@ -962,7 +1555,7 @@
                     "description": "The country type",
                     "type": "string"
                 },
-                "isoCountryCode": {
+                "iso_country_code": {
                     "description": "The iso country code",
                     "type": "string"
                 },
@@ -990,11 +1583,11 @@
                     "description": "The country currencies",
                     "type": "string"
                 },
-                "whatYouNeedToKnow": {
+                "what_you_need_to_know": {
                     "description": "A brief text about what you need to know about the country",
                     "type": "string"
                 },
-                "whyStudyHere": {
+                "why_study_here": {
                     "description": "The pros to study in the country",
                     "type": "string"
                 },
@@ -1002,11 +1595,11 @@
                     "description": "The country population",
                     "type": "string"
                 },
-                "powerVoltage": {
+                "power_voltage": {
                     "description": "The default power voltage in the country",
                     "type": "string"
                 },
-                "bigMacIndex": {
+                "big_mac_index": {
                     "description": "The big mac index",
                     "type": "string"
                 },
@@ -1014,15 +1607,15 @@
                     "description": "The url to the flag country",
                     "type": "string"
                 },
-                "mapImage": {
+                "map_image": {
                     "description": "The country url map image from google",
                     "type": "string"
                 },
-                "listImage": {
+                "list_image": {
                     "description": "The country listImage",
                     "type": "object"
                 },
-                "highlightImage": {
+                "highlight_image": {
                     "description": "The country highlightImage",
                     "type": "object"
                 },
@@ -1059,9 +1652,9 @@
         "offer": {
             "required": [
                 "id",
-                "initialDate",
-                "endDate",
-                "quantityAvailable",
+                "initial_date",
+                "end_date",
+                "quantity_available",
                 "program",
                 "price"
             ],
@@ -1071,17 +1664,17 @@
                     "type": "integer",
                     "format": "int64"
                 },
-                "initialDate": {
+                "initial_date": {
                     "description": "Starting date of the offer validity period",
                     "type": "string",
                     "format": "date"
                 },
-                "endDate": {
+                "end_date": {
                     "description": "Ending date of the offer validity period",
                     "type": "string",
                     "format": "date"
                 },
-                "quantityAvailable": {
+                "quantity_available": {
                     "type": "integer",
                     "format": "int64"
                 },
@@ -1089,7 +1682,7 @@
                     "description": "All rules applicable to this offer",
                     "type": "string"
                 },
-                "reimbursementPolicy": {
+                "reimbursement_policy": {
                     "description": "Reimbursement Policy",
                     "type": "string"
                 },
@@ -1108,7 +1701,7 @@
                         "type": "string"
                     }
                 },
-                "startDates": {
+                "start_dates": {
                     "description": "Available dates to start the course",
                     "type": "array",
                     "items": {
@@ -1132,6 +1725,104 @@
             },
             "type": "object"
         },
+        "partner": {
+            "required": [
+                "type",
+                "name"
+            ],
+            "properties": {
+                "type": {
+                    "description": "The Entity type",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "The Partner id",
+                    "type": "integer"
+                },
+                "owner_user": {
+                    "description": "The Partner owner user",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The Partner name",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "The Partner slug",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "The Partner city",
+                    "type": "string"
+                },
+                "country": {
+                    "description": "The Partner country",
+                    "type": "string"
+                },
+                "preferred_partner": {
+                    "description": "The Partner preferred partner",
+                    "type": "boolean"
+                },
+                "published": {
+                    "description": "The Partner published",
+                    "type": "boolean"
+                },
+                "brochures": {
+                    "description": "The Partner brochures",
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "logo": {
+                    "description": "The Partner logo url",
+                    "type": "object"
+                },
+                "list_image": {
+                    "description": "The Partner list Image",
+                    "type": "object"
+                },
+                "highlight_image": {
+                    "description": "The Partner highlight Image",
+                    "type": "object"
+                },
+                "photos": {
+                    "description": "The Partner photos",
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "videos": {
+                    "description": "A Partner videos",
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    }
+                },
+                "responsible_name": {
+                    "description": "The Partner responsible name",
+                    "type": "string"
+                },
+                "responsible_email": {
+                    "description": "The Partner responsible email",
+                    "type": "string"
+                },
+                "responsible_phone": {
+                    "description": "The Partner responsible phone",
+                    "type": "string"
+                },
+                "responsible_skype": {
+                    "description": "The Partner responsible skype",
+                    "type": "string"
+                },
+                "booking_contact_email": {
+                    "description": "The Partner booking contact email",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "programSchool": {
             "properties": {
                 "name": {
@@ -1147,7 +1838,7 @@
                         "Premium"
                     ]
                 },
-                "categoryDescription": {
+                "category_description": {
                     "description": "The category description",
                     "type": "string"
                 }
@@ -1175,7 +1866,7 @@
                 "school": {
                     "$ref": "#/definitions/programSchool"
                 },
-                "programType": {
+                "program_type": {
                     "description": "The program type",
                     "type": "string"
                 },
@@ -1183,7 +1874,7 @@
                     "description": "Language",
                     "type": "string"
                 },
-                "courseLoad": {
+                "course_load": {
                     "description": "The course load",
                     "type": "string"
                 },
@@ -1195,7 +1886,7 @@
                     "description": "The Program duration",
                     "type": "string"
                 },
-                "durationID": {
+                "duration_id": {
                     "description": "The program duration ID",
                     "type": "string"
                 },
@@ -1213,35 +1904,31 @@
             ],
             "properties": {
                 "type": {
-                    "description": "The school type",
+                    "description": "The Entity type",
                     "type": "string"
                 },
                 "school": {
-                    "description": "The school name",
+                    "description": "The School name",
                     "type": "string"
                 },
-                "city": {
-                    "description": "The city name",
-                    "type": "string"
-                },
-                "country": {
-                    "description": "The country name",
+                "category": {
+                    "description": "The School category",
                     "type": "string"
                 },
                 "about": {
-                    "description": "Details about the school",
+                    "description": "Details about the School",
                     "type": "string"
                 },
                 "summary": {
-                    "description": "The school summary",
+                    "description": "The School summary",
                     "type": "string"
                 },
-                "whatYouNeedToKnow": {
-                    "description": "Important notes about school infrastructure, accommodation, localization, etc.",
+                "what_you_need_to_know": {
+                    "description": "Important notes about School infrastructure, accommodation, localization, etc.",
                     "type": "string"
                 },
-                "whyStudyHere": {
-                    "description": "The pros to study in the school",
+                "why_study_here": {
+                    "description": "The pros to study in the School",
                     "type": "string"
                 },
                 "established": {
@@ -1249,114 +1936,91 @@
                     "type": "integer",
                     "format": "int32"
                 },
-                "extraActivities": {
-                    "description": "Description of school extra activities",
+                "extra_activities": {
+                    "description": "Description of School extra activities",
                     "type": "string"
                 },
-                "classDurationInMinutes": {
+                "class_duration_in_minutes": {
                     "description": "Class duration in minutes",
                     "type": "integer",
                     "format": "int32"
                 },
-                "intensiveCourseEvolution": {
+                "intensive_course_evolution": {
                     "description": "Intensive Course Evolution",
                     "type": "integer",
                     "format": "int32"
                 },
-                "regularCourseEvolution": {
-                    "description": "The school regular course evolution",
+                "regular_course_evolution": {
+                    "description": "The School regular course evolution",
                     "type": "integer",
                     "format": "int32"
                 },
-                "avgStudentsAge": {
-                    "description": "The school Average Students Age",
+                "avg_students_age": {
+                    "description": "The School Average Students Age",
                     "type": "integer",
                     "format": "int32"
                 },
-                "minAgeToApply": {
-                    "description": "The school Minimun Age To Apply",
+                "min_age_to_apply": {
+                    "description": "The School Minimun Age To Apply",
                     "type": "integer",
                     "format": "int32"
                 },
                 "infrastructure": {
-                    "description": "Description of the school infrastructure",
+                    "description": "Description of the School infrastructure",
                     "type": "string"
                 },
-                "avgStudentsPerClass": {
-                    "description": "The school Average Students Per Class",
+                "avg_students_per_class": {
+                    "description": "The School Average Students Per Class",
                     "type": "integer",
                     "format": "int32"
                 },
-                "numOfLevels": {
+                "num_of_levels": {
                     "description": "The Number of levels",
                     "type": "integer",
                     "format": "int32"
                 },
-                "numOfClassrooms": {
+                "num_of_classrooms": {
                     "description": "The number of Classrooms",
                     "type": "integer",
                     "format": "int32"
                 },
-                "studentCapacity": {
-                    "description": "The school capacity in number of students",
+                "student_capacity": {
+                    "description": "The School capacity in number of students",
                     "type": "integer",
                     "format": "int64"
                 },
-                "maxStudentPerClass": {
+                "max_student_per_class": {
                     "description": "The maximum number of students per class",
                     "type": "integer",
                     "format": "int32"
                 },
-                "percentageOfBrazilians": {
+                "percentage_of_brazilians": {
                     "description": "The percentage of brazilians students",
                     "type": "integer",
                     "maximum": 100,
                     "minimum": 0
                 },
-                "targetAudience": {
-                    "description": "The school target audience",
+                "target_audience": {
+                    "description": "The School target audience",
                     "type": "string"
                 },
-                "programsOffered": {
-                    "description": "The programs offered by the school",
+                "programs_offered": {
+                    "description": "The programs offered by the School",
                     "type": "string"
-                },
-                "logo": {
-                    "description": "The school url logo",
-                    "type": "object"
                 },
                 "address": {
-                    "description": "The school address",
+                    "description": "The School address",
                     "type": "string"
                 },
-                "mapImage": {
-                    "description": "The school url map image from google",
+                "map_image": {
+                    "description": "The School url map image from google",
                     "type": "string"
                 },
-                "listImage": {
-                    "description": "The school listImage",
-                    "type": "object"
-                },
-                "highlightImage": {
-                    "description": "The school highlightImage",
-                    "type": "object"
-                },
-                "photos": {
-                    "description": "The school photos",
-                    "type": "array",
-                    "items": {
-                        "type": "object"
-                    }
-                },
-                "videos": {
-                    "description": "A school url video",
-                    "type": "string"
-                },
-                "createdAt": {
+                "created_at": {
                     "description": "The creation date of the resource in ISO8601 format",
                     "type": "string"
                 },
-                "updatedAt": {
+                "updated_at": {
                     "description": "The date of the last update in ISO8601 format",
                     "type": "string"
                 }
